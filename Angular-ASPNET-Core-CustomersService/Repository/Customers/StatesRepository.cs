@@ -1,4 +1,5 @@
 ﻿using Angular_ASPNETCore_CustomersService.Models;
+using Angular_ASPNETCore_CustomersService.Models.Customers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Angular_ASPNETCore_CustomersService.Repository
+namespace Angular_ASPNETCore_CustomersService.Repository.Customers
 {
     public class StatesRepository : IStatesRepository
     {

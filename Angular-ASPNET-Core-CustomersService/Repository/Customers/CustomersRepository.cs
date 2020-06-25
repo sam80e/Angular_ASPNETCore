@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 using Angular_ASPNETCore_CustomersService.Models;
+using Angular_ASPNETCore_CustomersService.Models.Customers;
 
-namespace Angular_ASPNETCore_CustomersService.Repository
+namespace Angular_ASPNETCore_CustomersService.Repository.Customers
 {
     public class CustomersRepository : ICustomersRepository
     {

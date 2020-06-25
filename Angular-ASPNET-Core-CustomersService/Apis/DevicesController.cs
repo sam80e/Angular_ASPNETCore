@@ -1,37 +1,37 @@
 using Angular_ASPNETCore_CustomersService.Infrastructure;
 using Angular_ASPNETCore_CustomersService.Models;
-using Angular_ASPNETCore_CustomersService.Models.Customers;
-using Angular_ASPNETCore_CustomersService.Repository.Customers;
+using Angular_ASPNETCore_CustomersService.Models.Devices;
+using Angular_ASPNETCore_DevicesService.Repository.Devices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Angular_ASPNETCore_CustomersService.Apis
+namespace Angular_ASPNETCore_DevicesService.Apis
 {
-    [Route("api/customers")]
-    public class CustomersApiController : Controller
+    [Route("api/devices")]
+    public class DevicesApiController : Controller
     {
-        ICustomersRepository _CustomersRepository;
+        IDevicesRepository _DevicesRepository;
         ILogger _Logger;
 
-        public CustomersApiController(ICustomersRepository customersRepo, ILoggerFactory loggerFactory) {
-            _CustomersRepository = customersRepo;
-            _Logger = loggerFactory.CreateLogger(nameof(CustomersApiController));
+        public DevicesApiController(IDevicesRepository DevicesRepo, ILoggerFactory loggerFactory) {
+            _DevicesRepository = DevicesRepo;
+            _Logger = loggerFactory.CreateLogger(nameof(DevicesApiController));
         }
 
-        // GET api/customers
+        // GET api/Devices
         [HttpGet]
         [NoCache]
-        [ProducesResponseType(typeof(List<Customer>), 200)]
+        [ProducesResponseType(typeof(List<Device>), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> Customers()
+        public async Task<ActionResult> Devices()
         {
             try
             {
-                var customers = await _CustomersRepository.GetCustomersAsync();
-                return Ok(customers);
+                var devices = await _DevicesRepository.GetDevicesAsync();
+                return Ok(devices);
             }
             catch (Exception exp)
             {
@@ -40,16 +40,16 @@ namespace Angular_ASPNETCore_CustomersService.Apis
             }
         }
 
-        // GET api/customers/page/10/10
+        // GET api/Devices/page/10/10
         [HttpGet("page/{skip}/{take}")]
         [NoCache]
-        [ProducesResponseType(typeof(List<Customer>), 200)]
+        [ProducesResponseType(typeof(List<Device>), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> CustomersPage(int skip, int take)
+        public async Task<ActionResult> DevicesPage(int skip, int take)
         {
             try
             {
-                var pagingResult = await _CustomersRepository.GetCustomersPageAsync(skip, take);
+                var pagingResult = await _DevicesRepository.GetDevicesPageAsync(skip, take);
                 Response.Headers.Add("X-InlineCount", pagingResult.TotalRecords.ToString());
                 return Ok(pagingResult.Records);
             }
@@ -60,17 +60,17 @@ namespace Angular_ASPNETCore_CustomersService.Apis
             }
         }
 
-        // GET api/customers/5
-        [HttpGet("{id}", Name = "GetCustomerRoute")]
+        // GET api/Devices/5
+        [HttpGet("{id}", Name = "GetDeviceRoute")]
         [NoCache]
-        [ProducesResponseType(typeof(Customer), 200)]
+        [ProducesResponseType(typeof(Device), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> Customers(int id)
+        public async Task<ActionResult> Devices(int id)
         {
             try
             {
-                var customer = await _CustomersRepository.GetCustomerAsync(id);
-                return Ok(customer);
+                var device = await _DevicesRepository.GetDeviceAsync(id);
+                return Ok(device);
             }
             catch (Exception exp)
             {
@@ -79,12 +79,12 @@ namespace Angular_ASPNETCore_CustomersService.Apis
             }
         }
 
-        // POST api/customers
+        // POST api/Devices
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ProducesResponseType(typeof(ApiResponse), 201)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> CreateCustomer([FromBody]Customer customer)
+        public async Task<ActionResult> CreateDevice([FromBody]Device Device)
         {
             if (!ModelState.IsValid)
             {
@@ -93,13 +93,13 @@ namespace Angular_ASPNETCore_CustomersService.Apis
 
             try
             {
-                var newCustomer = await _CustomersRepository.InsertCustomerAsync(customer);
-                if (newCustomer == null)
+                var newDevice = await _DevicesRepository.InsertDeviceAsync(Device);
+                if (newDevice == null)
                 {
                     return BadRequest(new ApiResponse { Status = false });
                 }
-                return CreatedAtRoute("GetCustomerRoute", new { id = newCustomer.Id },
-                        new ApiResponse { Status = true, Customer = newCustomer });
+                return CreatedAtRoute("GetDeviceRoute", new { id = newDevice.Id },
+                        new ApiResponse { Status = true, Device = newDevice });
             }
             catch (Exception exp)
             {
@@ -108,12 +108,12 @@ namespace Angular_ASPNETCore_CustomersService.Apis
             }
         }
 
-        // PUT api/customers/5
+        // PUT api/Devices/5
         [HttpPut("{id}")]
         [ValidateAntiForgeryToken]
         [ProducesResponseType(typeof(ApiResponse), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> UpdateCustomer(int id, [FromBody]Customer customer)
+        public async Task<ActionResult> UpdateDevice(int id, [FromBody]Device Device)
         {
             if (!ModelState.IsValid)
             {
@@ -122,12 +122,12 @@ namespace Angular_ASPNETCore_CustomersService.Apis
 
             try
             {
-                var status = await _CustomersRepository.UpdateCustomerAsync(customer);
+                var status = await _DevicesRepository.UpdateDeviceAsync(Device);
                 if (!status)
                 {
                     return BadRequest(new ApiResponse { Status = false });
                 }
-                return Ok(new ApiResponse { Status = true, Customer = customer });
+                return Ok(new ApiResponse { Status = true, Device = Device });
             }
             catch (Exception exp)
             {
@@ -136,16 +136,16 @@ namespace Angular_ASPNETCore_CustomersService.Apis
             }
         }
 
-        // DELETE api/customers/5
+        // DELETE api/Devices/5
         [HttpDelete("{id}")]
         [ValidateAntiForgeryToken]
         [ProducesResponseType(typeof(ApiResponse), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> DeleteCustomer(int id)
+        public async Task<ActionResult> DeleteDevice(int id)
         {
             try
             {
-                var status = await _CustomersRepository.DeleteCustomerAsync(id);
+                var status = await _DevicesRepository.DeleteDeviceAsync(id);
                 if (!status)
                 {
                     return BadRequest(new ApiResponse { Status = false });

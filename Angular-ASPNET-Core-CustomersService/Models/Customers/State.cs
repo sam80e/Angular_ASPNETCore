@@ -1,4 +1,5 @@
-namespace Angular_ASPNETCore_CustomersService.Models {
+namespace Angular_ASPNETCore_CustomersService.Models.Customers 
+{
   public class State {
     public int Id { get; set; }
     public string Abbreviation { get; set; }

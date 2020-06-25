@@ -1,4 +1,4 @@
-namespace Angular_ASPNETCore_CustomersService.Models {
+namespace Angular_ASPNETCore_CustomersService.Models.Customers {
   public class Order {
     public int Id { get; set; }
     public string Product { get; set; }

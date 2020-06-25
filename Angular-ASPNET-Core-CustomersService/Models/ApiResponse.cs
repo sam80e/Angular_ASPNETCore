@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Angular_ASPNETCore_CustomersService.Models.Customers;
+using Angular_ASPNETCore_CustomersService.Models.Devices;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,7 @@ namespace Angular_ASPNETCore_CustomersService.Models
     {
         public bool Status { get; set; }
         public Customer Customer { get; set; }
+        public Device Device { get; set; }
         public ModelStateDictionary ModelState { get; set; }
     }
 }

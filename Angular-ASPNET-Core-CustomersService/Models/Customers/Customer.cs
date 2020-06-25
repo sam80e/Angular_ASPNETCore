@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 
-namespace Angular_ASPNETCore_CustomersService.Models {
+namespace Angular_ASPNETCore_CustomersService.Models.Customers 
+{
   public class Customer
   {
     public int Id { get; set; }

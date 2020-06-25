@@ -9,7 +9,8 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Swagger;
-using Angular_ASPNETCore_CustomersService.Repository;
+using Angular_ASPNETCore_CustomersService.Repository.Customers;
+using Angular_ASPNETCore_DevicesService.Repository.Devices;
 
 namespace Angular_ASPNETCore_CustomersService
 {
@@ -35,6 +36,10 @@ namespace Angular_ASPNETCore_CustomersService
             {
                 options.UseSqlServer(Configuration.GetConnectionString("CustomersSqlServerConnectionString"));
             });
+            services.AddDbContext<DevicesDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DeviceManagerSQLServerConnection"));
+            });
 
             //Add SqLite support
             //services.AddDbContext<CustomersDbContext>(options => {
@@ -50,6 +55,8 @@ namespace Angular_ASPNETCore_CustomersService
 
             services.AddScoped<ICustomersRepository, CustomersRepository>();
             services.AddScoped<IStatesRepository, StatesRepository>();
+            services.AddScoped<IDevicesRepository, DevicesRepository>();
+
             services.AddTransient<CustomersDbSeeder>();
 
             //https://github.com/domaindrivendev/Swashbuckle.AspNetCore
@@ -75,12 +82,8 @@ namespace Angular_ASPNETCore_CustomersService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, 
-            IHostingEnvironment env, 
-            CustomersDbSeeder customersDbSeeder,
-            IAntiforgery antiforgery)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, CustomersDbSeeder customersDbSeeder, IAntiforgery antiforgery)
         {
-
             //Manually handle setting XSRF cookie. Needed because HttpOnly has to be set to false so that
             //Angular is able to read/access the cookie.
             app.Use((context, next) =>

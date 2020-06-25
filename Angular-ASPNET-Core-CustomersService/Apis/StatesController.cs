@@ -1,6 +1,8 @@
 using Angular_ASPNETCore_CustomersService.Infrastructure;
 using Angular_ASPNETCore_CustomersService.Models;
+using Angular_ASPNETCore_CustomersService.Models.Customers;
 using Angular_ASPNETCore_CustomersService.Repository;
+using Angular_ASPNETCore_CustomersService.Repository.Customers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
