@@ -1,0 +1,39 @@
+<div>
+  <header>
+      <h3>
+          <span class="glyphicon glyphicon-user"></span>
+          {{ device.deviceName }} {{ device.tenant }}
+      </h3>
+  </header>
+  <br />
+  <form (ngSubmit)="submit()" #deviceForm="ngForm" class="editForm" novalidate>
+    <div class="form-group">
+      <label>Device Name</label>
+      <input type="text" class="form-control" name="deviceName" [(ngModel)]="device.deviceName" #deviceName="ngModel" required>
+      <div class="alert alert-danger" [hidden]="deviceName.untouched || deviceName.valid">Device Name is required</div>
+    </div>
+    <div class="form-group">
+      <label>Tenant</label>
+      <input type="number" class="form-control" name="tenant" [(ngModel)]="device.tenant" #tenant="ngModel" required>
+      <div class="alert alert-danger" [hidden]="tenant.untouched || tenant.valid">Tenant is required</div>
+    </div>
+    <br />
+
+    <div *ngIf="device">
+      <div class="alert alert-warning" *ngIf="device.id && deleteMessageEnabled">
+         Delete Device?&nbsp;&nbsp;<button class="btn btn-danger" (click)="delete($event)">Yes</button>&nbsp;&nbsp;
+         <button class="btn btn-default" (click)="deleteMessageEnabled = false">No</button>
+      </div>
+      <button class="btn btn-danger" *ngIf="device.id && !deleteMessageEnabled" (click)="deleteMessageEnabled = true">Delete</button>&nbsp;&nbsp;
+
+      <div class="pull-right" *ngIf="!deleteMessageEnabled">
+        <button class="btn btn-default" (click)="cancel($event)">Cancel</button>&nbsp;&nbsp;
+        <button type="submit" class="btn btn-success" [disabled]="!deviceForm.valid">{{ operationText }}</button>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div class="alert alert-danger" *ngIf="errorMessage != null">{{ errorMessage }}</div>
+
+  </form>
+</div>

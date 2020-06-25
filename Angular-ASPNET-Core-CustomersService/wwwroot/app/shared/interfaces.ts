@@ -28,6 +28,14 @@ export interface IOrder {
     orderTotal?: number;
 }
 
+export interface IDevice {
+    id: number;
+    deviceName: string;
+    tenant?: number;
+    dateAdded: Date;
+    simCardId: number;
+}
+
 export interface IRouting {
     routes: ModuleWithProviders,
     components: any[]

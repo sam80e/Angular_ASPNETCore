@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row grid-container">
+        <div class="col-md-10">
+            <div class="table">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th (click)="sort('deviceName')">Device Name</th>
+                            <th (click)="sort('tenant')">Tenant</th>
+                            <th (click)="sort('dateAdded')">Date Added</th>
+                            <th (click)="sort('simCardId')">SIM Card Id</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let device of devices;trackBy:trackby.device">
+                            <td><i class="fas fa-tablet-alt"></i></td>
+                            <td><a [routerLink]="['/devices',device.id]">{{ device.deviceName | capitalize }}</a></td>
+                            <td>{{ device.tenant | capitalize }}</td>
+                            <td>{{ device.dateAdded }}</td>
+                            <td>{{ device.simCardId | trim }}</td>
+                        </tr>
+                        <tr *ngIf="!devices.length">
+                            <td>&nbsp;</td>
+                            <td colspan="6">No Records Found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

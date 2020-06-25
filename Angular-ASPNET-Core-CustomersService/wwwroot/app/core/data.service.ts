@@ -4,7 +4,7 @@ import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/htt
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-import { ICustomer, IOrder, IState, IPagedResults, ICustomerResponse } from '../shared/interfaces';
+import { ICustomer, IOrder, IState, IPagedResults, ICustomerResponse, IDevice } from '../shared/interfaces';
 /* 
     ##### PLEASE NOTE ######
 
@@ -20,6 +20,7 @@ export class DataService {
   
     baseUrl: string = '/api/customers';
     baseStatesUrl: string = '/api/states'
+    baseDevicesUrl: string = '/api/devices'
 
     constructor(private http: HttpClient) { 
 
@@ -34,7 +35,6 @@ export class DataService {
                         }),
                         catchError(this.handleError)
                    );
-;
     }
 
     getCustomersPage(page: number, pageSize: number) : Observable<IPagedResults<ICustomer[]>> {
@@ -112,6 +112,36 @@ export class DataService {
           //return Observable.throw(err.text() || 'backend server error');
         }
         return Observable.throw(error || 'ASP.NET Core server error');
+    }
+
+    getDevices(): Observable<IDevice[]> {
+        return this.http.get<IDevice[]>(this.baseDevicesUrl)
+            .pipe(
+                map((devices: IDevice[]) => {
+                    return devices;
+                }),
+                catchError(this.handleError)
+            );
+    }
+    getDevicesPage(page: number, pageSize: number): Observable<IPagedResults<IDevice[]>> {
+        return this.http.get<IDevice[]>(`${this.baseDevicesUrl}/page/${page}/${pageSize}`, { observe: 'response' })
+            .pipe(
+                map((res) => {
+                    //Need to observe response in order to get to this header (see {observe: 'response'} above)
+                    const totalRecords = +res.headers.get('x-inlinecount');
+                    let devices = res.body as IDevice[];
+                    return {
+                        results: devices,
+                        totalRecords: totalRecords
+                    };
+                }),
+                catchError(this.handleError)
+            );
+    }
+
+    getDevice(id: string): Observable<IDevice> {
+        return this.http.get<IDevice>(this.baseDevicesUrl + '/' + id)
+            .pipe(catchError(this.handleError));
     }
 
 }

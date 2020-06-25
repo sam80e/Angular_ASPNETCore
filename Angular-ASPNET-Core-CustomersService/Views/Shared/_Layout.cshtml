@@ -10,6 +10,8 @@
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css' />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link href="styles/styles.css" rel="stylesheet" />
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Comment these scripts out if using the webpack option -->
     <!-- Polyfill(s) for older browsers -->
@@ -20,7 +22,7 @@
     <script>
         //NOTES: notice the sytemjs.config file above (just go find an eample & put it in your project, reuse the same over & over),
         //this document tells solution what to load when 'app' is imported
-        System.import('app').catch(function(err){ console.error(err); }); //app is just an alias in mappings in the systemjs.config file
+        System.import('app').catch(function (err) { console.error(err); }); //app is just an alias in mappings in the systemjs.config file
     </script>
 
 </head>
@@ -35,7 +37,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 <img src="images/people.png" alt="logo">
-                <a href="/customers" class="app-title">Customer Manager</a>
+                <a href="/customers" class="app-title">Customers</a> |
+                <a href="/devices" class="app-title">Devices</a>
+
             </div>
         </nav>
     </header>
