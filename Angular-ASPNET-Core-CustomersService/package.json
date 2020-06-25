@@ -2,7 +2,7 @@
     "name": "angular-aspnetcore-customersservice",
     "version": "1.0.0",
     "repository": {
-        "url": "https://github.com/DanWahlin/Angular-ASPNET-Core-CustomersService"
+        "url": "https://github.com/SamEltringham/Angular-ASPNET-Core-CustomersService"
     },
     "scripts": {
         "clean": "del-cli \"wwwroot/app/**/*.js\" \"wwwroot/app/**/*.js.map\" \"wwwroot/devDist\" \"wwwroot/dist\"",

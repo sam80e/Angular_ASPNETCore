@@ -63,7 +63,7 @@ namespace Angular_ASPNETCore_CustomersService
                     Title = "ASP.NET Core Customers API",
                     Description = "ASP.NET Core/Angular Customers Swagger Documentation",
                     TermsOfService = "None",
-                    Contact = new Contact { Name = "Dan Wahlin", Url = "http://twitter.com/danwahlin" },
+                    Contact = new Contact { Name = "Sam Eltringham", Url = "https://www.linkedin.com/in/samantha-eltringham-51332227/" },
                     License = new License { Name = "MIT", Url = "https://en.wikipedia.org/wiki/MIT_License" }
                 });
 

@@ -1,6 +1,6 @@
 FROM microsoft/aspnetcore-build
 
-MAINTAINER Dan Wahlin
+MAINTAINER Sam Eltringham
 
 ENV DOTNET_USE_POLLING_FILE_WATCHER=1
 ENV ASPNETCORE_URLS=http://*:2500
