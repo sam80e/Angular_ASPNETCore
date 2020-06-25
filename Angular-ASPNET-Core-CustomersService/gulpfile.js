@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
     del = require('del'),
     libPath = 'wwwroot/lib',
-    tsSource = 'wwwroot/app',
+    tsLocation = ['./wwwroot/app/**/*.ts'],
     nodeModulesPath = 'node_modules';
     ts = require('gulp-typescript');
 gulp.task('clean', function () {
@@ -64,7 +64,7 @@ gulp.task("compileTs", function () {
 });
 
 gulp.task('watch', function () {
-
+    gulp.watch(tsLocation, gulp.series('compileTs'));
 });
 
 gulp.task('default', gulp.series('watch'));
