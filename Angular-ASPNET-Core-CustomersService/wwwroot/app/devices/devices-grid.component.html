@@ -15,10 +15,10 @@
                     <tbody>
                         <tr *ngFor="let device of devices;trackBy:trackby.device">
                             <td><i class="fas fa-tablet-alt"></i></td>
-                            <td><a [routerLink]="['/devices',device.id]">{{ device.deviceName | capitalize }}</a></td>
-                            <td>{{ device.tenant | capitalize }}</td>
+                            <td><a [routerLink]="['/devices',device.id]">{{ device.deviceName }}</a></td>
+                            <td>{{ device.tenant }}</td>
                             <td>{{ device.dateAdded }}</td>
-                            <td>{{ device.simCardId | trim }}</td>
+                            <td>{{ device.simCardId }}</td>
                         </tr>
                         <tr *ngIf="!devices.length">
                             <td>&nbsp;</td>
