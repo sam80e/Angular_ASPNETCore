@@ -33,7 +33,7 @@ to call a ASP.NET Core RESTful service.
 
 1. Start the application (F5)
 
-1. Browse to http://localhost:5000
+1. Browse to http://localhost:2500
 
 ### Running the Application Locally on Mac
 
@@ -57,7 +57,7 @@ to call a ASP.NET Core RESTful service.
 
     * Run `dotnet run`
 
-1. Browse to http://localhost:5000
+1. Browse to http://localhost:2500
 
 ## Running the Application with Docker
 
@@ -77,7 +77,7 @@ to call a ASP.NET Core RESTful service.
 
 1. Run `docker-compose up` to run the containers. A volume will be created that points back to your source code to make it easy to change code.
 
-1. Navigate to http://localhost:5000 if using Docker for Mac/Windows or http://192.168.99.100:5000 if using Docker Toolbox in a browser
+1. Navigate to http://localhost:2500 if using Docker for Mac/Windows or http://192.168.99.100:2500 if using Docker Toolbox in a browser
 
 ### Using Webpack
 

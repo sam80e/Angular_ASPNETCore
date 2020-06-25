@@ -53,7 +53,7 @@ namespace Angular_ASPNETCore_CustomersService
             services.AddTransient<CustomersDbSeeder>();
 
             //https://github.com/domaindrivendev/Swashbuckle.AspNetCore
-            //https://localhost:5000/swagger
+            //https://localhost:2500/swagger
             services.AddSwaggerGen(options =>
             {
                 //TODO: Exploring the project structure 
@@ -127,7 +127,7 @@ namespace Angular_ASPNETCore_CustomersService
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
-            // Visit http://localhost:5000/swagger
+            // Visit http://localhost:2500/swagger
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");

@@ -1,57 +1,70 @@
 var gulp = require('gulp'),
-    plumber = require('gulp-plumber'),
     del = require('del'),
-    sequence = require('run-sequence'),
     libPath = 'wwwroot/lib',
+    tsSource = 'wwwroot/app',
     nodeModulesPath = 'node_modules';
-
+    ts = require('gulp-typescript');
 gulp.task('clean', function () {
-  return del(libPath + '/**/*', { force: true });
+    return del(libPath + '/**/*', { force: true });
 });
 
 gulp.task('copy:libs', function (done) {
-    sequence('clean', 'copy:vendor', 'copy:rxjs', 'copy:angular', done);
+    gulp.series('clean', 'copy:vendor', 'copy:rxjs', 'copy:angular', done);
 });
 
-gulp.task('copy:vendor', function() {
-  return gulp.src([
-      nodeModulesPath + '/core-js/client/**/*',
-      nodeModulesPath + '/zone.js/dist/zone.js',
-      nodeModulesPath + '/systemjs/dist/system-polyfills.js',
-      nodeModulesPath + '/systemjs/dist/system.src.js',
-      nodeModulesPath + '/tslib/tslib.js'
+gulp.task('copy:vendor', function () {
+    return gulp.src([
+        nodeModulesPath + '/core-js/client/**/*',
+        nodeModulesPath + '/zone.js/dist/zone.js',
+        nodeModulesPath + '/systemjs/dist/system-polyfills.js',
+        nodeModulesPath + '/systemjs/dist/system.src.js',
+        nodeModulesPath + '/tslib/tslib.js'
     ])
-    .pipe(gulp.dest(libPath));
+        .pipe(gulp.dest(libPath));
 });
 
-gulp.task('copy:rxjs', function() {
-  return gulp.src([
-      nodeModulesPath + '/rxjs/**/*'
+gulp.task('copy:rxjs', function () {
+    return gulp.src([
+        nodeModulesPath + '/rxjs/**/*'
     ])
-    .pipe(gulp.dest(libPath + '/rxjs'));
+        .pipe(gulp.dest(libPath + '/rxjs'));
 });
 
-gulp.task('copy:angular', function() {
-//   return gulp.src([
-//       'node_modules/@angular/common/bundles/common.umd.js',
-//       'node_modules/@angular/compiler/bundles/compiler.umd.js',
-//       'node_modules/@angular/core/bundles/core.umd.js',
-//       'node_modules/@angular/forms/bundles/forms.umd.js',
-//       'node_modules/@angular/http/bundles/http.umd.js',      
-//       'node_modules/@angular/platform-browser/bundles/platform-browser.umd.js',
-//       'node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
-//       'node_modules/@angular/router/bundles/router.umd.js',
-//     ])
+gulp.task('copy:angular', function () {
+    //   return gulp.src([
+    //       'node_modules/@angular/common/bundles/common.umd.js',
+    //       'node_modules/@angular/compiler/bundles/compiler.umd.js',
+    //       'node_modules/@angular/core/bundles/core.umd.js',
+    //       'node_modules/@angular/forms/bundles/forms.umd.js',
+    //       'node_modules/@angular/http/bundles/http.umd.js',      
+    //       'node_modules/@angular/platform-browser/bundles/platform-browser.umd.js',
+    //       'node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+    //       'node_modules/@angular/router/bundles/router.umd.js',
+    //     ])
     return gulp.src([nodeModulesPath + '/@angular/**/*']).pipe(gulp.dest(libPath + '/@angular'));
 });
 
-gulp.task('watch', function() {
+var tsProject;
+gulp.task("compileTs", function () {
+    var ts = require("gulp-typescript");
+    var sourcemaps = require('gulp-sourcemaps');
 
-    gulp.watch([
-        jsPath + '/**/*.js', ['compressScripts']
-    ]);
+    if (!tsProject) {
+        tsProject = ts.createProject("tsconfig.json");
+    }
+
+    var reporter = ts.reporter.fullReporter();
+    var tsResult = tsProject.src()
+        .pipe(sourcemaps.init())
+        .pipe(tsProject(reporter));
+
+    return tsResult.js
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest("."));
+});
+
+gulp.task('watch', function () {
 
 });
 
-gulp.task('default', ['compressScripts', 'watch']);
-
+gulp.task('default', gulp.series('watch'));
