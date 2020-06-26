@@ -11,7 +11,6 @@ import { IDevice, IState } from '../shared/interfaces';
 export class DeviceEditComponent implements OnInit {
 
 device: IDevice = {
-    id: 0,
     deviceName: '',
     tenant: 0,
     dateAdded: new Date,
@@ -55,7 +54,7 @@ device: IDevice = {
 
         this.dataService.updateDevice(this.device)
           .subscribe((device: IDevice) => {
-            if (device) {
+              if (device) {
               this.router.navigate(['/devices']);
             } else {
               this.errorMessage = 'Unable to save device';
@@ -85,8 +84,8 @@ device: IDevice = {
   }
 
   delete(event: Event) {
-    event.preventDefault();
-    this.dataService.deleteDevice(this.device.id)
+      event.preventDefault();
+      this.dataService.deleteDevice(this.device.id.toString())
         .subscribe((status: boolean) => {
           if (status) {
             this.router.navigate(['/devices']);
@@ -97,5 +96,4 @@ device: IDevice = {
         },
         (err) => console.log(err));
   }
-
 }

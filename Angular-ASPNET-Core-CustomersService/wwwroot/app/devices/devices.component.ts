@@ -29,7 +29,7 @@ export class DevicesComponent implements OnInit {
 
   filterChanged(filterText: string) {
     if (filterText && this.devices) {
-        let props = ['firstName', 'lastName', 'address', 'city', 'state.name', 'orderTotal'];
+        let props = ['deviceName', 'tenant', 'dateAdded', 'simCardId'];
         this.filteredDevices = this.dataFilter.filter(this.devices, props, filterText);
     }
     else {

@@ -4,7 +4,7 @@ import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/htt
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-import { ICustomer, IOrder, IState, IPagedResults, ICustomerResponse, IDevice } from '../shared/interfaces';
+import { ICustomer, IOrder, IState, IPagedResults, ICustomerResponse, IDevice, IDeviceResponse } from '../shared/interfaces';
 /* 
     ##### PLEASE NOTE ######
 
@@ -123,6 +123,7 @@ export class DataService {
                 catchError(this.handleError)
             );
     }
+
     getDevicesPage(page: number, pageSize: number): Observable<IPagedResults<IDevice[]>> {
         return this.http.get<IDevice[]>(`${this.baseDevicesUrl}/page/${page}/${pageSize}`, { observe: 'response' })
             .pipe(
@@ -141,6 +142,35 @@ export class DataService {
 
     getDevice(id: string): Observable<IDevice> {
         return this.http.get<IDevice>(this.baseDevicesUrl + '/' + id)
+            .pipe(catchError(this.handleError));
+    }
+
+    insertDevice(device: IDevice): Observable<IDevice> {
+        console.log('insert', device);
+        return this.http.post<IDeviceResponse>(this.baseDevicesUrl, device)
+            .pipe(
+                map((data) => {
+
+                    console.log('insertDevice status: ' + data.status);
+                    return data.device;
+                }),
+                catchError(this.handleError)
+            );
+    }
+
+    updateDevice(device: IDevice): Observable<IDevice> {
+        return this.http.put<IDeviceResponse>(this.baseDevicesUrl + '/' + device.id, device)
+            .pipe(
+                map((data) => {
+                    console.log('updateDevice status: ' + data.status);
+                    return data.device;
+                }),
+                catchError(this.handleError)
+            );
+    }
+
+    deleteDevice(id: string): Observable<boolean> {
+        return this.http.delete<boolean>(this.baseDevicesUrl + '/' + id)
             .pipe(catchError(this.handleError));
     }
 

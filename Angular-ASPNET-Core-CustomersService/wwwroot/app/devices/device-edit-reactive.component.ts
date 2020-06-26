@@ -14,7 +14,7 @@ export class DeviceEditReactiveComponent implements OnInit {
 
   deviceForm: FormGroup;
   device: IDevice = {
-    id: 0,
+    id: '',
     deviceName: '',
     tenant: 0,
     dateAdded: new Date,
@@ -55,7 +55,7 @@ export class DeviceEditReactiveComponent implements OnInit {
           deviceName: [this.device.deviceName, Validators.required],
           tenant: [this.device.tenant, Validators.required],
           dateAdded: [this.device.dateAdded, Validators.required],
-          simCardId: [this.device.simCardId, [Validators.required, ValidationService.emailValidator]],
+          simCardId: [this.device.simCardId, [Validators.required]],
       });
   }
 
@@ -66,7 +66,7 @@ export class DeviceEditReactiveComponent implements OnInit {
   submit({ value, valid }: { value: IDevice, valid: boolean }) {
       
       value.id = this.device.id;
-      value.zip = this.device.zip || 0; 
+      //value.zip = this.device.zip || 0; 
       // var device: IDevice = {
       //   id: this.device.id,
       // };

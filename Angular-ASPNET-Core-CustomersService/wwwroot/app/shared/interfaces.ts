@@ -29,7 +29,7 @@ export interface IOrder {
 }
 
 export interface IDevice {
-    id: number;
+    id?: string;
     deviceName: string;
     tenant?: number;
     dateAdded: Date;
@@ -49,4 +49,9 @@ export interface IPagedResults<T> {
 export interface ICustomerResponse {
     status: boolean;
     customer: ICustomer;
+}
+
+export interface IDeviceResponse {
+    status: boolean;
+    device: IDevice;
 }

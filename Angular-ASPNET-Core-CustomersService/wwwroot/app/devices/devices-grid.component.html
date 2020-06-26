@@ -14,7 +14,10 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let device of devices;trackBy:trackby.device">
-                            <td><i class="fas fa-tablet-alt"></i></td>
+                            <td>
+                                <img src="images/device.jpg"
+                                     class="card-image" alt="Device Image" />
+                            </td>
                             <td><a [routerLink]="['/devices',device.id]">{{ device.deviceName }}</a></td>
                             <td>{{ device.tenant }}</td>
                             <td>{{ device.dateAdded }}</td>
