@@ -1,0 +1,51 @@
+<div>
+  <header>
+      <h3>
+          <span class="glyphicon glyphicon-user"></span>
+          {{ simcard.ccid }}
+      </h3>
+  </header>
+  <br />
+  <form [formGroup]="simcardForm" (ngSubmit)="submit(simcardForm)" class="editForm" novalidate>
+      <div class="form-group">
+          <label>CCID</label>
+          <input type="text" class="form-control" formControlName="ccid" />
+          <div class="alert alert-danger" [hidden]="simcardForm.controls.ccid.untouched || simcardForm.controls.ccid.valid">CCID is required</div>
+      </div>
+      <div class="form-group">
+          <label>Number</label>
+          <input type="number" class="form-control" formControlName="number">
+          <div class="alert alert-danger" [hidden]="simcardForm.controls.number.untouched || simcardForm.controls.number.valid">Number is required</div>
+      </div>
+
+      <div class="form-group">
+          <label>Activated</label>
+          <input type="checkbox" class="form-control" formControlName="activated" />
+          <div class="alert alert-danger" [hidden]="simcardForm.controls.activated.untouched || simcardForm.controls.activated.valid">Activated is required</div>
+      </div>
+      <div class="form-group">
+          <label>Service Provider</label>
+          <input type="number" class="form-control" formControlName="serviceProvider">
+          <div class="alert alert-danger" [hidden]="simcardForm.controls.serviceProvider.untouched || simcardForm.controls.serviceProvider.valid">Service Provider is required</div>
+      </div>
+
+      <br />
+
+      <div *ngIf="simcard">
+          <div class="alert alert-warning" *ngIf="simcard.id && deleteMessageEnabled">
+              Delete SIMCard?&nbsp;&nbsp;<button class="btn btn-danger" (click)="delete($event)">Yes</button>&nbsp;&nbsp;
+              <button class="btn btn-default" (click)="deleteMessageEnabled = false">No</button>
+          </div>
+          <button class="btn btn-danger" *ngIf="simcard.id && !deleteMessageEnabled" (click)="deleteMessageEnabled = true">Delete</button>&nbsp;&nbsp;
+
+          <div class="pull-right" *ngIf="!deleteMessageEnabled">
+              <button class="btn btn-default" (click)="cancel($event)">Cancel</button>&nbsp;&nbsp;
+              <button type="submit" class="btn btn-success" [disabled]="!simcardForm.valid">{{ operationText }}</button>
+          </div>
+      </div>
+      <br />
+      <br />
+      <div class="alert alert-danger" *ngIf="errorMessage != null">{{ errorMessage }}</div>
+
+  </form>
+</div>

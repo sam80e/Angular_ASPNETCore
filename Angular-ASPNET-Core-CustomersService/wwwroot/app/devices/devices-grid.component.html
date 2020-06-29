@@ -21,7 +21,7 @@
                             <td><a [routerLink]="['/devices',device.id]">{{ device.deviceName }}</a></td>
                             <td>{{ device.tenant }}</td>
                             <td>{{ device.dateAdded }}</td>
-                            <td>{{ device.simCardId }}</td>
+                            <td><a [routerLink]="['/simcards', device.simCardId]">{{ device.simCardId }}</a></td>
                         </tr>
                         <tr *ngIf="!devices.length">
                             <td>&nbsp;</td>

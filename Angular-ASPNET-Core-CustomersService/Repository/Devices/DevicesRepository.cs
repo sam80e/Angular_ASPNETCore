@@ -12,10 +12,10 @@ namespace Angular_ASPNETCore_DevicesService.Repository.Devices
     public class DevicesRepository : IDevicesRepository
     {
 
-        private readonly DevicesDbContext _Context;
+        private readonly DeviceManagerDbContext _Context;
         private readonly ILogger _Logger;
 
-        public DevicesRepository(DevicesDbContext context, ILoggerFactory loggerFactory) {
+        public DevicesRepository(DeviceManagerDbContext context, ILoggerFactory loggerFactory) {
           _Context = context;
           _Logger = loggerFactory.CreateLogger("DevicesRepository");
         }

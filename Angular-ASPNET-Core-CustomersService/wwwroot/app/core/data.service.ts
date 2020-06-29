@@ -4,7 +4,7 @@ import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/htt
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-import { ICustomer, IOrder, IState, IPagedResults, ICustomerResponse, IDevice, IDeviceResponse } from '../shared/interfaces';
+import { IState, IPagedResults, ICustomer, IOrder, ICustomerResponse, IDevice, IDeviceResponse, ISIMCard, ISIMCardResponse } from '../shared/interfaces';
 /* 
     ##### PLEASE NOTE ######
 
@@ -18,9 +18,10 @@ import { ICustomer, IOrder, IState, IPagedResults, ICustomerResponse, IDevice, I
 @Injectable()
 export class DataService {
   
-    baseUrl: string = '/api/customers';
+    baseUrl: string = '/api/customers'
     baseStatesUrl: string = '/api/states'
     baseDevicesUrl: string = '/api/devices'
+    baseSIMCardsUrl: string = '/api/simcards'
 
     constructor(private http: HttpClient) { 
 
@@ -174,4 +175,66 @@ export class DataService {
             .pipe(catchError(this.handleError));
     }
 
+
+
+    //#region SIMCards
+    getSIMCards(): Observable<ISIMCard[]> {
+        return this.http.get<ISIMCard[]>(this.baseSIMCardsUrl)
+            .pipe(
+                map((simcards: ISIMCard[]) => {
+                    return simcards;
+                }),
+                catchError(this.handleError)
+            );
+    }
+
+    getSIMCardsPage(page: number, pageSize: number): Observable<IPagedResults<ISIMCard[]>> {
+        return this.http.get<ISIMCard[]>(`${this.baseSIMCardsUrl}/page/${page}/${pageSize}`, { observe: 'response' })
+            .pipe(
+                map((res) => {
+                    //Need to observe response in order to get to this header (see {observe: 'response'} above)
+                    const totalRecords = +res.headers.get('x-inlinecount');
+                    let simcards = res.body as ISIMCard[];
+                    return {
+                        results: simcards,
+                        totalRecords: totalRecords
+                    };
+                }),
+                catchError(this.handleError)
+            );
+    }
+
+    getSIMCard(id: string): Observable<ISIMCard> {
+        return this.http.get<ISIMCard>(this.baseSIMCardsUrl + '/' + id)
+            .pipe(catchError(this.handleError));
+    }
+
+    insertSIMCard(simcard: ISIMCard): Observable<ISIMCard> {
+        console.log('insert', simcard);
+        return this.http.post<ISIMCardResponse>(this.baseSIMCardsUrl, simcard)
+            .pipe(
+                map((data) => {
+
+                    console.log('insertSIMCard status: ' + data.status);
+                    return data.simcard;
+                }),
+                catchError(this.handleError)
+            );
+    }
+
+    updateSIMCard(simcard: ISIMCard): Observable<ISIMCard> {
+        return this.http.put<ISIMCardResponse>(this.baseSIMCardsUrl + '/' + simcard.id, simcard)
+            .pipe(
+                map((data) => {
+                    console.log('updateSIMCard status: ' + data.status);
+                    return data.simcard;
+                }),
+                catchError(this.handleError)
+            );
+    }
+
+    deleteSIMCard(id: string): Observable<boolean> {
+        return this.http.delete<boolean>(this.baseSIMCardsUrl + '/' + id)
+            .pipe(catchError(this.handleError));
+    }
 }

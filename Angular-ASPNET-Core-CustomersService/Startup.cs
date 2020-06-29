@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Swagger;
 using Angular_ASPNETCore_CustomersService.Repository.Customers;
 using Angular_ASPNETCore_DevicesService.Repository.Devices;
+using Angular_ASPNETCore_SIMCardsService.Repository.SIMCards;
+using Angular_ASPNETCore_DevicesService.Repository;
 
 namespace Angular_ASPNETCore_CustomersService
 {
@@ -36,7 +38,7 @@ namespace Angular_ASPNETCore_CustomersService
             {
                 options.UseSqlServer(Configuration.GetConnectionString("CustomersSqlServerConnectionString"));
             });
-            services.AddDbContext<DevicesDbContext>(options =>
+            services.AddDbContext<DeviceManagerDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DeviceManagerSQLServerConnection"));
             });
@@ -56,6 +58,7 @@ namespace Angular_ASPNETCore_CustomersService
             services.AddScoped<ICustomersRepository, CustomersRepository>();
             services.AddScoped<IStatesRepository, StatesRepository>();
             services.AddScoped<IDevicesRepository, DevicesRepository>();
+            services.AddScoped<ISIMCardsRepository, SIMCardsRepository>();
 
             services.AddTransient<CustomersDbSeeder>();
 

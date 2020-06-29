@@ -36,6 +36,14 @@ export interface IDevice {
     simCardId: number;
 }
 
+export interface ISIMCard {
+    id?: string;
+    ccid: string;
+    number?: number;
+    activated: boolean;
+    serviceProvider: number;
+}
+
 export interface IRouting {
     routes: ModuleWithProviders,
     components: any[]
@@ -54,4 +62,8 @@ export interface ICustomerResponse {
 export interface IDeviceResponse {
     status: boolean;
     device: IDevice;
+}
+export interface ISIMCardResponse {
+    status: boolean;
+    simcard: ISIMCard;
 }

@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row grid-container">
+        <div class="col-md-10">
+            <div class="table">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th (click)="sort('ccid')">CCID</th>
+                            <th (click)="sort('number')">Number</th>
+                            <th (click)="sort('activated')">Activated</th>
+                            <th (click)="sort('serviceProvider')">Service Provider</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let simcard of simcards;trackBy:trackby.simcard">
+                            <td>
+                                <img src="images/simcard.jpg"
+                                     class="card-image" alt="SIMCard Image" />
+                            </td>
+                            <td><a [routerLink]="['/simcards',simcard.id]">{{ simcard.ccid }}</a></td>
+                            <td>{{ simcard.number }}</td>
+                            <td>{{ simcard.activated }}</td>
+                            <td>{{ simcard.serviceProvider }}</td>
+                        </tr>
+                        <tr *ngIf="!simcards.length">
+                            <td>&nbsp;</td>
+                            <td colspan="6">No Records Found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

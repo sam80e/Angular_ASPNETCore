@@ -12,6 +12,7 @@
     },
     "license": "ISC",
     "dependencies": {
+        "@angular-devkit/schematics": "^10.0.0",
         "@angular/animations": "^6.1.6",
         "@angular/common": "^6.1.6",
         "@angular/compiler": "^6.1.6",
